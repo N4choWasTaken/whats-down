@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "151557821895",
+    "project_id": "whats-down-fd9de",
+    "storage_bucket": "whats-down-fd9de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151557821895:android:d4d8b3ebd6d3e6d0f6b5e2",
+        "android_client_info": {
+          "package_name": "com.thierry.whatsdown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151557821895-bibt9ctani9vsb22ic6eqma37p5k1h1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDii6bO5-XZFl0AJ-OFPoJUrf0N15Ye00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151557821895-bibt9ctani9vsb22ic6eqma37p5k1h1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
