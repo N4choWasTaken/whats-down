@@ -1,6 +1,7 @@
 package com.thierry.whatsdown
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -29,7 +30,11 @@ class OverviewActivity : AppCompatActivity() {
                 }
 
                 button.setOnClickListener {
-
+                    val intent = Intent(this@OverviewActivity, DmActivity::class.java)
+                    intent.putExtra("user", intent.getSerializableExtra("user"))
+                    intent.putExtra("chatId", chats[i].id)
+                    startActivity(intent)
+                    finish()
                 }
                 val layout = findViewById<LinearLayout>(R.id.chats)
                 layout.addView(button)
