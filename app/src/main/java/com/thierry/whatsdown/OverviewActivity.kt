@@ -20,13 +20,20 @@ class OverviewActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: $chats")
             for (i in 0 until chats.size) {
                 val button = Button(this@OverviewActivity)
-                button.text = "Click Me"
+                var users = User.getUsersFromChat(chats[i].id)
+
+                if (users[1] == (intent.getSerializableExtra("user") as User).username) {
+                    button.text = users[0]
+                } else {
+                    button.text = users[1]
+                }
 
                 button.setOnClickListener {
 
                 }
                 val layout = findViewById<LinearLayout>(R.id.chats)
                 layout.addView(button)
+
             }
         }
     }

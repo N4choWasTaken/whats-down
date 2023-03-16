@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.thierry.whatsdown.chats.Chat
 import com.thierry.whatsdown.database.DataBase
@@ -59,6 +60,18 @@ class User(_username: String, _id: String) : java.io.Serializable{
 
             return chatDocs
 
+        }
+
+        suspend fun getUsersFromChat(id: String): List<String> {
+            val query = DataBase.connect().collection("chats").document(id).get().await()
+            val user1Id = query.get("user1") as DocumentReference
+            val user2Id = query.get("user2") as DocumentReference
+            val user1 = DataBase.connect().collection("users").document(user1Id.id).get().await().get("username").toString()
+            val user2 = DataBase.connect().collection("users").document(user2Id.id).get().await().get("username").toString()
+            val userList = mutableListOf<String>()
+            userList.add(user1)
+            userList.add(user2)
+            return userList
         }
 
     }
