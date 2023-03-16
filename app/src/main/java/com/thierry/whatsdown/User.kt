@@ -1,13 +1,15 @@
 package com.thierry.whatsdown
 
 import android.content.ContentValues.TAG
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import com.thierry.whatsdown.database.DataBase
+import com.thierry.whatsdown.login.LoginActivity
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.tasks.await
-import kotlin.math.log
 
-class User(_username: String) {
+class User(_username: String) : java.io.Serializable{
     var username = _username;
 
     companion object {
