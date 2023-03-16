@@ -1,7 +1,6 @@
 package com.thierry.whatsdown.chats
 
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.DocumentReference
 import com.thierry.whatsdown.User
 import com.thierry.whatsdown.chats.messages.Messages
 import com.thierry.whatsdown.database.DataBase
@@ -23,12 +22,21 @@ class Chat(_user1: User, _user2: User) {
                 .await()
 
             val messages = dbMessages.documents.map { doc ->
-                val user = doc.get("user").toString() ?: ""
+                val user = doc.get("user")
                 val content = doc.get("content").toString() ?: ""
-                Messages(content, chatRef, user)
+                Messages(content, chatRef, user as DocumentReference)
             }
 
             return messages
+        }
+
+        suspend fun writeMessage(_content: String, _currentUser: DocumentReference, _chat: DocumentReference) {
+            val newMessage = Messages(
+                _content,
+                _chat,
+                _currentUser
+            )
+            DataBase.connect().collection("messages").add(newMessage)
         }
     }
 }

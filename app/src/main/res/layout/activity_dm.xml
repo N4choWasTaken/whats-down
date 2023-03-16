@@ -7,14 +7,14 @@
     tools:context=".DmActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="418dp"
-        android:layout_height="82dp"
+        android:id="@+id/messagetextView"
+        android:layout_width="0dp"
+        android:layout_height="102dp"
         android:layout_marginStart="4dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messages" />
 
@@ -27,8 +27,19 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/sendMessageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <Button
+        android:id="@+id/sendMessageButton"
+        android:layout_width="105dp"
+        android:layout_height="107dp"
+        android:layout_marginEnd="3dp"
+        android:text="send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/messagetextView"
+        app:layout_constraintTop_toBottomOf="@+id/messages" />
 </androidx.constraintlayout.widget.ConstraintLayout>

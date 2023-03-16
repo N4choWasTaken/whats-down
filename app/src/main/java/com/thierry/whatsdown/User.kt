@@ -14,7 +14,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 
 class User(_username: String, _id: String) : java.io.Serializable{
-    private var id: String = _id
+    var id: String = _id
     var username = _username;
     var chats: List<Chat> = emptyList();
 
