@@ -18,6 +18,7 @@ class Chat(_user1: User, _user2: User) {
 
             val dbMessages = db.collection("messages")
                 .whereEqualTo("chat", chatRef)
+                .orderBy("timestamp")
                 .get()
                 .await()
 

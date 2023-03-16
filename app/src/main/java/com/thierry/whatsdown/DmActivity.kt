@@ -47,7 +47,17 @@ class DmActivity : AppCompatActivity() {
                         currentUserRef,
                         chatRef
                     )
+
+                    var messagesFromChat =
+                        Chat.getMessagesFromChat(intent.getSerializableExtra("chatId").toString())
+
+                    for (i in messagesFromChat.indices) {
+                        val textView = TextView(this@DmActivity)
+                        textView.text = messagesFromChat[i].content
+                        layout.addView(textView)
+                    }
                 }
+
             }
         }
     }
