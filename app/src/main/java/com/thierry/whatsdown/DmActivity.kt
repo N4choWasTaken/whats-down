@@ -47,17 +47,11 @@ class DmActivity : AppCompatActivity() {
                         currentUserRef,
                         chatRef
                     )
-
-                    var messagesFromChat =
-                        Chat.getMessagesFromChat(intent.getSerializableExtra("chatId").toString())
-
-                    for (i in messagesFromChat.indices) {
-                        val textView = TextView(this@DmActivity)
-                        textView.text = messagesFromChat[i].content
-                        layout.addView(textView)
-                    }
+                    val textView = TextView(this@DmActivity)
+                    textView.text = findViewById<TextView>(R.id.messagetextView).text.toString()
+                    layout.addView(textView)
+                    findViewById<TextView>(R.id.messagetextView).text = ""
                 }
-
             }
         }
     }
