@@ -17,8 +17,15 @@ class OverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
+        val currentUser = intent.getSerializableExtra("user") as User
+        Log.d(TAG, "onCreate the current user is: $currentUser")
+        val service = Intent(this@OverviewActivity, DatabaseObserver::class.java).apply {
+            putExtra("user", currentUser)
+        }
+        startService(service)
+
+
         GlobalScope.launch(Dispatchers.Main) {
-            var currentUser = intent.getSerializableExtra("user")
             var chats = User.getChats(currentUser as User)
             Log.d(TAG, "onCreate: $chats")
             for (i in 0 until chats.size) {
