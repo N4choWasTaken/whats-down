@@ -41,7 +41,7 @@ class User(_username: String, _id: String) : java.io.Serializable{
                         continuation.resume(null, onCancellation = null)
                     }
             }
-
+            
         suspend fun getChats(currentUser: User): MutableList<DocumentSnapshot> {
             val userRef = DataBase.connect().collection("users").document(currentUser.id)
             val query = DataBase.connect().collection("chats")
@@ -73,6 +73,5 @@ class User(_username: String, _id: String) : java.io.Serializable{
             userList.add(user2)
             return userList
         }
-
     }
 }
