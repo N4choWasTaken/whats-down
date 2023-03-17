@@ -1,12 +1,19 @@
 package com.thierry.whatsdown
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
+import android.app.PendingIntent.FLAG_MUTABLE
 import android.app.Service
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.google.firebase.firestore.Query
 import com.thierry.whatsdown.database.DataBase
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +65,7 @@ class DatabaseObserver() : Service() {
 
                 dbMessage?.getTimestamp("timestamp")?.let { messageTime ->
                     if (messageTime.toDate().time > lastCheckTime) {
-                        //TODO: Send notification
+                        sendPushNotification("New Message", "You got a Message")
                         Log.d(TAG, "New message in chat ${chat.id}")
                     } else {
                         Log.d(TAG, "checkForNewMessage: No new messages")
@@ -69,6 +76,26 @@ class DatabaseObserver() : Service() {
             // Update the last check time
             lastCheckTime = System.currentTimeMillis()
         }
+    }
+
+    private fun sendPushNotification(title: String, message: String) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel("channel_id", "channel_name", NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+        val intent = Intent(this, OverviewActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, FLAG_IMMUTABLE)
+        val notification = NotificationCompat.Builder(this, "channel_id")
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .build()
+        notificationManager.notify(0, notification)
     }
 
     private fun startService() {
