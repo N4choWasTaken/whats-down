@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.LinearLayout
+import com.google.firebase.messaging.FirebaseMessaging
 import com.thierry.whatsdown.database.DataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,9 +17,17 @@ class OverviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        val currentUser = intent.getSerializableExtra("user") as User
+        Log.d(TAG, "onCreate the current user is: $currentUser")
+        val service = Intent(this@OverviewActivity, DatabaseObserver::class.java).apply {
+            putExtra("user", currentUser)
+        }
+        startService(service)
+
 
         GlobalScope.launch(Dispatchers.Main) {
-            var currentUser = intent.getSerializableExtra("user")
             var chats = User.getChats(currentUser as User)
             Log.d(TAG, "onCreate: $chats")
             for (i in 0 until chats.size) {
